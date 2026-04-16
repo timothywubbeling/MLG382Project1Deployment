@@ -52,18 +52,21 @@ for filename, url in ARTIFACTS.items():
 ## LOAD MODEL + FEATURES
 ## =====================================================
 
-model = joblib.load(ARTIFACTS_DIR / "random_forest_model.pkl")
-scaler = joblib.load(ARTIFACTS_DIR / "scaler.pkl")
-le = joblib.load(ARTIFACTS_DIR / "label_encoder.pkl")
+_model = None
+_scaler = None
+_le = None
+_explainer = None
 
-MODEL_FEATURES = (
-    pd.read_csv(ARTIFACTS_DIR / "feature_names.csv")["feature"]
-    .tolist()
-)
+def load_model():
+    global _model, _scaler, _le, _explainer
 
-FEATURE_MEANS = pd.Series(scaler.mean_, index=MODEL_FEATURES)
-explainer = shap.TreeExplainer(model)
+    if _model is None:
+        _model = joblib.load(ARTIFACTS_DIR / "random_forest_model.pkl")
+        _scaler = joblib.load(ARTIFACTS_DIR / "scaler.pkl")
+        _le = joblib.load(ARTIFACTS_DIR / "label_encoder.pkl")
+        _explainer = shap.TreeExplainer(_model)
 
+    return _model, _scaler, _le, _explainer
 
 # RISK CONFIG — colour + description per class
 RISK_CONFIG = {
@@ -239,18 +242,26 @@ app.layout = html.Div(style={"backgroundColor": "#f7f8fc", "minHeight": "100vh",
     State("hba1c", "value"),
     State("bp", "value"),
 )
-def predict(n_clicks, age, gender, ethnicity,
-            activity, alcohol, sleep,
-            bmi, glucose, hba1c, bp):
+def predict(
+    n_clicks, age, gender, ethnicity,
+    activity, alcohol, sleep,
+    bmi, glucose, hba1c, bp
+):
+    # ✅ FIRST LINE: lazy-load heavy objects
+    model, scaler, le, explainer = load_model()
 
     if not n_clicks:
         return "", {}
 
     if None in [age, bmi, glucose]:
-        alert = dbc.Alert("Please fill in Age, BMI and Fasting Glucose before assessing.",
-                          color="warning", style={"borderRadius": "12px"})
+        alert = dbc.Alert(
+            "Please fill in Age, BMI and Fasting Glucose before assessing.",
+            color="warning",
+            style={"borderRadius": "12px"}
+        )
         return alert, {}
 
+    # --- rest of your existing logic continues unchanged ---
     try:
         # BUILD INPUT from training means, then override with user values
         data = FEATURE_MEANS.copy()
