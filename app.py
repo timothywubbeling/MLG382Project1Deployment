@@ -19,10 +19,10 @@ ARTIFACTS_DIR = Path("artifacts")
 ARTIFACTS_DIR.mkdir(exist_ok=True)
 
 ARTIFACTS = {
-    "random_forest_model.pkl": "https://drive.google.com/file/d/11sTilNOnJqeIao9_uGna2kNh3rfIsgwZ/view?usp=sharing",
-    "scaler.pkl": "https://drive.google.com/file/d/1HsveKYSEEAZFjtSFCfyM9Dev3iEojPq9/view?usp=sharing",
-    "label_encoder.pkl": "https://drive.google.com/file/d/18Fv_hCneWRrhF-3_j2momHBtJecwwCra/view?usp=sharing",
-    "feature_names.csv": "https://drive.google.com/file/d/1lUD6CDwzHrOSceaXhBxdNB1xfWRH8qEu/view?usp=sharing",
+    "random_forest_model.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/random_forest_model.pkl",
+    "scaler.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/scaler.pkl",
+    "label_encoder.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/label_encoder.pkl",
+    "feature_names.csv": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/feature_names.csv",
 }
 
 
