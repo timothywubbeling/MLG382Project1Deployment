@@ -19,7 +19,7 @@ ARTIFACTS_DIR = Path("artifacts")
 ARTIFACTS_DIR.mkdir(exist_ok=True)
 
 ARTIFACTS = {
-    "random_forest_model.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/xgboost_model.pkl.pkl",
+    "random_forest_model.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/xgboost_model.pkl",
     "scaler.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/scaler.pkl",
     "label_encoder.pkl": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/label_encoder.pkl",
     "feature_names.csv": "https://huggingface.co/timothywubbeling/ForestDecisionTree/resolve/main/feature_names.csv",
